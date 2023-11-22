@@ -15,6 +15,7 @@ import json
 from pathlib import Path
 
 from pydantic_settings import BaseSettings
+# from pydantic import BaseSettings
 
 from pixano.core import Image
 from pixano.data import Dataset, DatasetInfo

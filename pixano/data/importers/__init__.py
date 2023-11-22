@@ -14,6 +14,7 @@
 from pixano.data.importers.coco_importer import COCOImporter
 from pixano.data.importers.dota_importer import DOTAImporter
 from pixano.data.importers.image_importer import ImageImporter
+from pixano.data.importers.mnist_importer import MnistImporter
 from pixano.data.importers.importer import Importer
 
 __all__ = [
@@ -21,4 +22,5 @@ __all__ = [
     "ImageImporter",
     "DOTAImporter",
     "COCOImporter",
+    "MnistImporter",
 ]

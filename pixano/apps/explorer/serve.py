@@ -29,9 +29,12 @@ LOGO = """
 ██  ▒▓▓▒▒     ▒   ▒      ▒▓▒                                         ▓
 ██                         █▓                                        ▓
 """
-ASSETS_PATH = pkg_resources.resource_filename("pixano", "apps/explorer/dist/assets")
-TEMPLATE_PATH = pkg_resources.resource_filename("pixano", "apps/explorer/dist")
+# ASSETS_PATH = pkg_resources.resource_filename("pixano", "apps/explorer/dist/assets")
+# TEMPLATE_PATH = pkg_resources.resource_filename("pixano", "apps/explorer/dist")
+ASSETS_PATH = "/home/melissap/miniconda3/envs/pixano/lib/python3.10/site-packages/pixano/apps/explorer/dist/assets"
+TEMPLATE_PATH = "/home/melissap/miniconda3/envs/pixano/lib/python3.10/site-packages/pixano/apps/explorer/dist"
 
+print(ASSETS_PATH)
 
 class Explorer(App):
     """Pixano Explorer App

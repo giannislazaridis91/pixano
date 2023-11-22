@@ -29,9 +29,10 @@ LOGO = """
 ██  ▒▓▓▒▒     ▒   ▒      ▒▓▒                                         ▓
 ██                         █▓                                        ▓
 """
-ASSETS_PATH = pkg_resources.resource_filename("pixano", "apps/annotator/dist/assets")
-TEMPLATE_PATH = pkg_resources.resource_filename("pixano", "apps/annotator/dist")
-
+# ASSETS_PATH = pkg_resources.resource_filename("pixano", "apps/annotator/dist/assets")
+# TEMPLATE_PATH = pkg_resources.resource_filename("pixano", "apps/annotator/dist")
+ASSETS_PATH = "/home/melissap/miniconda3/envs/pixano/lib/python3.10/site-packages/pixano/apps/explorer/dist/assets"
+TEMPLATE_PATH = "/home/melissap/miniconda3/envs/pixano/lib/python3.10/site-packages/pixano/apps/explorer/dist"
 
 class Annotator(App):
     """Pixano Annotator App

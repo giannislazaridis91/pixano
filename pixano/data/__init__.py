@@ -15,7 +15,7 @@ from pixano.data.dataset import Dataset
 from pixano.data.dataset_info import DatasetInfo
 from pixano.data.exporters import COCOExporter, Exporter
 from pixano.data.fields import Fields
-from pixano.data.importers import COCOImporter, DOTAImporter, ImageImporter, Importer
+from pixano.data.importers import COCOImporter, DOTAImporter, ImageImporter, Importer, MnistImporter
 
 __all__ = [
     "Dataset",
@@ -27,4 +27,5 @@ __all__ = [
     "ImageImporter",
     "DOTAImporter",
     "COCOImporter",
+    "MnistImporter",
 ]
