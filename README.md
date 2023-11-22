@@ -33,7 +33,10 @@ Then, you can install the Pixano package inside that environment with pip:
 
 ```shell
 pip install pixano
+conda install -c pytorch torchvision 
 ```
+
+### you may follow instructions in ./ActiveLearning/certh_integration/231031_mnist/README.md to install and run the customAL-demo
 
 # Using your datasets
 
