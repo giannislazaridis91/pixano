@@ -46,3 +46,6 @@ __pycache__
 *.pth
 *.onnx
 *.wasm
+
+# Active Learning external repo
+ActiveLearning/certh_integration/231031_mnist/alpha_mix_active_learning/
