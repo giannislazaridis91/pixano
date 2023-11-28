@@ -33,10 +33,13 @@ Then, you can install the Pixano package inside that environment with pip:
 
 ```shell
 pip install pixano
-conda install -c pytorch torchvision 
 ```
 
+## Fixes required 
 
+- change the **ASSETS_PATH** AND **TEMPLATE_PATH** variables located within the *pixano/apps/annotator/serve.py* accordingly. 
+
+## Installing Active Learning
 
 - *you may follow [instructions](./ActiveLearning/certh_integration/231031_mnist/README.md) to install and run the customAL-demo*
 

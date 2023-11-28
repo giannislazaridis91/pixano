@@ -169,7 +169,7 @@ class Learner:
         al_data = [
             {
                 "id": id,
-                "round": -1
+                "round": -1 #None #0
                 # 'label': None,
             }
             for id in ids
@@ -264,7 +264,7 @@ class Learner:
             json.dump(json_stats, f)
 
     def tagRound(self, round, candidates):
-        active_learning_tbl = self.db.open_table("active_learning")
+        active_learning_tbl = self.db.open_table("active_learning")        
         active_learning_tbl.update(
             where=f"id in ({ddb_str(candidates)})", values={"round": round}
         )
@@ -281,7 +281,9 @@ class Learner:
 
     def query(self, round, n_candidates=10):
         t0 = time.time() if self.verbose else None
-        candidates = self.sampler.query(n_candidates)
+        # candidates = self.sampler.query(n_candidates)
+        candidates = self.sampler.query(round)
+
         print(f"query time: {time.time() - t0}") if self.verbose else None
 
         # tag them to annotate
@@ -305,9 +307,9 @@ class Learner:
         self._compute_al_stats()
         print(f"annotate time (stats): {time.time() - t0}") if self.verbose else None
 
-    def train(self, round, epochs=10, batch_size=100):
+    def train(self, round, epochs=10, batch_size=100): # discard these values
         t0 = time.time() if self.verbose else None
-        result = self.trainer.train(epochs=epochs, batch_size=batch_size)
+        result = self.trainer.train(round, epochs=epochs, batch_size=batch_size)
         print(f"training time: {time.time() - t0}") if self.verbose else None
         # create score stat plot
         n_cand = getNumCandidatesRound(self.db, round)
@@ -344,7 +346,12 @@ def getLastRound(db: LanceDBConnection) -> int:
     rounds = data.df()
     rounds = rounds.loc[:,"round"].to_list()
     # rounds = [it["round"] for it in data["round"].to_arrow_table().to_pylist()]
-    return max(rounds) if rounds != [] else -1
+    # return max(rounds) if rounds != [] else -1
+    if (rounds == [] or max(rounds)==-1):
+        return 0
+    else:
+        return max(rounds)
+    # return max(rounds) if (rounds != [] and max(rounds)!=-1) else 0
 
 
 def getNumCandidatesRound(db: LanceDBConnection, round: int) -> int:
@@ -452,6 +459,7 @@ def custom_update(tbl, where: str, col, values: list):
     # adapted from original LanceTable.update
     # used to update several rows with different values in one pass
     # REQUIRED: len(list) == len(items returned by 'where' query)
+
     orig_data = tbl._dataset.to_table(filter=where).combine_chunks()
     if len(orig_data) == 0:
         return
@@ -486,6 +494,9 @@ def getDataset(db: LanceDBConnection):
     """
     db_ddb = db.open_table("db").to_lance()
 
+    samples = [duckdb.sql(f"select id from db_ddb").to_arrow_table().to_pylist()]
+    labels = [duckdb.sql(f"select label from db_ddb").to_arrow_table().to_pylist()]
+
     tr_X = [os.path.join( os.path.dirname(db_ddb.uri), "media", "image", "train", it["id"]) for it in duckdb.sql(
             f"select id from db_ddb where split = 'train'"
         ).to_arrow_table().to_pylist()]
@@ -502,7 +513,7 @@ def getDataset(db: LanceDBConnection):
             f"select label from db_ddb where split = 'train' and label is not NULL"
         ).to_arrow_table().to_pylist()]
 
-    te_X = [os.path.join( os.path.dirname(db_ddb.uri), "media", "image", "train", it["id"]) for it in duckdb.sql(
+    te_X = [os.path.join( os.path.dirname(db_ddb.uri), "media", "image", "test", it["id"]) for it in duckdb.sql(
             f"select id from db_ddb where label is not NULL and split = 'test'"
         ).to_arrow_table().to_pylist()]
 
@@ -511,3 +522,22 @@ def getDataset(db: LanceDBConnection):
         ).to_arrow_table().to_pylist()]
 
     return tr_X,tr_Y,tr_lb_X,tr_lb_Y,te_X,te_Y
+
+def importTestLabels(db: LanceDBConnection, test_split):
+    """return whether labels of the testing split are imported.
+
+    Args:
+        db (LanceDBConnection): database as LanceDB connection
+        (X_test, Y_test): The testing split.
+    """
+    db_ddb = db.open_table("db")
+    lance_db_ddb = db_ddb.to_lance()
+    check = duckdb.sql("select * from lance_db_ddb where split = 'test' and label is NULL").fetchall()
+
+    if len(check)!=0:
+        print(f"Importing validation data in {db.uri}")
+        (X_test,Y_test) = test_split
+        custom_update(db_ddb, f"id in ({ddb_str(X_test)})", 'label', [str(y) for y in Y_test])
+
+    # import pdb
+    # pdb.set_trace()
