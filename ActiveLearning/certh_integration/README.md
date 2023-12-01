@@ -35,7 +35,7 @@ pip install -r requirements.txt
 Run all cells to install mnist dataset 
 
 
-3. open 4.integrateAI.ipynb and provide values to the following variables : 
+3. open 3.Actively_Learn_dataset.ipynb and provide values to the following variables : 
 - configuration variables
 - internal experimental variables
 - external experimental variables
