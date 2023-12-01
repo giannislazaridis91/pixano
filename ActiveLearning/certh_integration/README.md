@@ -46,3 +46,7 @@ Run all cells to run the customAL scenario using alphamix sampling.
 - ROOT/temp_data (accuracy / samples selected)
 - console out at the 4.interateAl program
 - logs within activeLearning module
+
+5. Check the following folders to validate obtained results for each corresponding dataset supported :
+- for the mnist dataset : ROOT/temp_data_Mnist
+- for the CIFAR11 dataset : ROOT/temp_data_CIFAR11

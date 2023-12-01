@@ -521,7 +521,8 @@ def getDataset(db: LanceDBConnection):
             f"select label from db_ddb where split = 'test' and label is not NULL"
         ).to_arrow_table().to_pylist()]
 
-    return tr_X,tr_Y,tr_lb_X,tr_lb_Y,te_X,te_Y
+    num_classes = len(set(te_Y))
+    return tr_X,tr_Y,tr_lb_X,tr_lb_Y,te_X,te_Y, num_classes
 
 def importTestLabels(db: LanceDBConnection, test_split):
     """return whether labels of the testing split are imported.
@@ -541,3 +542,4 @@ def importTestLabels(db: LanceDBConnection, test_split):
 
     # import pdb
     # pdb.set_trace()
+    #
