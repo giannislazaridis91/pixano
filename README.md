@@ -41,7 +41,7 @@ pip install pixano
 
 ## Installing Active Learning
 
-- *you may follow [instructions](./ActiveLearning/certh_integration/231031_mnist/README.md) to install and run the customAL-demo*
+- *you may follow [instructions](./ActiveLearning/certh_integration/README.md) to install and run the customAL-demo*
 
 
 
