@@ -27,20 +27,25 @@ pip install -r requirements.txt
 
 1. activate pixano_env
 
-2. open 1.convert_dataset_2_explorer.ipynb and provide values to the following variables : 
-- ROOTDIR
-- DATASET_NAME
-- datasets_dir
-- library_dir
-Run all cells to install mnist dataset 
-
-
-3. open 3.Actively_Learn_dataset.ipynb and provide values to the following variables : 
+2. open _{dataset}.ipynb and provide values to the following variables : 
 - configuration variables
-- internal experimental variables
+    - ROOTDIR
+    - DATASET_NAME
+    - datasets_dir
+    - library_dir
+    - customLearnerCondaEnv
+    - ALModule
+- internal experimental variables:
+    - labels_per_round
+    - numInitLabels
+    - learning_rate
+    - max_epochs_per_round
+    - model_name
+    - strategy
 - external experimental variables
-Run all cells to run the customAL scenario using alphamix sampling.
+    - num_rounds
 
+3. Run all cells to install mnist dataset and to run the customAL scenario using a custom sampling.
 
 4. To inspect results you may check the following files:
 - ROOT/temp_data (accuracy / samples selected)
