@@ -48,5 +48,5 @@ __pycache__
 *.wasm
 
 # Active Learning external repo
-ActiveLearning/certh_integration/alpha_mix_active_learning/
+ActiveLearning/alpha_mix_active_learning/
 temp_data

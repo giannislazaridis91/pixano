@@ -2,7 +2,7 @@ import os
 import subprocess
 import pandas as pd
 
-abspath_ALmain = "/home/melissap/Desktop/LAGO_43integrationDemo/pixano/ActiveLearning/certh_integration/alpha_mix_active_learning/_main.py"
+relpath_ALmain = "alpha_mix_active_learning/_main.py"
 
 # here define the implementation for the new sampler
 class customSampler():
@@ -10,7 +10,7 @@ class customSampler():
     #add all other dependencies define in https://docs.google.com/document/d/1NlArhWYjePzB43sR4HCUc_4xBU73Up9OI24hIyPx0zY/edit
     # for now only the vital ones
 
-    ALearner = "../ActiveLearning"
+    pixano_root = "../../pixano"
     customLearnerCondaEnv = "customLearner"
 
     model_name = "mlp"
@@ -51,7 +51,7 @@ class customSampler():
 
         arguments = f"--data_name {self.dataset_name}           \
                         --data_dir {self.import_dir}            \
-                        --pixano_al_module {self.ALearner}      \
+                        --pixano_root {self.pixano_root}        \
                         --round {round} --mode {self._mode}     \
                         --query_out {csvQue}                    \
                         --model {self.model_name}               \
@@ -61,13 +61,10 @@ class customSampler():
                         --n_query {self.labels_per_round}"         
         if self.alpha_opt and self.strategy_name=="AlphaMixSampling":
             arguments +=" --alpha_opt"
-        
-        # import pdb
-        # pdb.set_trace()
 
         subprocess.run(f"""source ~/miniconda3/etc/profile.d/conda.sh
                     conda activate {self.customLearnerCondaEnv} 
-                    python {abspath_ALmain} {arguments}""",
+                    python {relpath_ALmain} {arguments}""",
                     shell=True, executable='/bin/bash', check=True)
         
 

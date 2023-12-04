@@ -3,11 +3,11 @@ import subprocess
 import pandas as pd
 from ActiveLearning.ALearner import getLastRound
 
-abspath_ALmain = "/home/melissap/Desktop/LAGO_43integrationDemo/pixano/ActiveLearning/certh_integration/alpha_mix_active_learning/_main.py"
+relpath_ALmain = "alpha_mix_active_learning/_main.py"
 
 class customTrainer():
 
-    ALearner = "../ActiveLearning"
+    pixano_root = "../../pixano"
     customLearnerCondaEnv = "customLearner"
 
     model_name="mlp"
@@ -52,7 +52,7 @@ class customTrainer():
 
         arguments = f"--data_name {self.dataset_name}           \
                         --data_dir {self.import_dir}            \
-                        --pixano_al_module {self.ALearner}      \
+                        --pixano_root {self.pixano_root}        \
                         --round {round} --mode {self._mode}     \
                         --strategy {self.strategy_name}         \
                         --train_out {csvAcc}                    \
@@ -63,7 +63,7 @@ class customTrainer():
 
         subprocess.run(f"""source ~/miniconda3/etc/profile.d/conda.sh
             conda activate {self.customLearnerCondaEnv} 
-            python {abspath_ALmain} {arguments}""", #{customLearner_ROOTDIR}/customLearner_main_3
+            python {relpath_ALmain} {arguments}""", #{customLearner_ROOTDIR}/customLearner_main_3
             shell=True, executable='/bin/bash', check=True)
 
         trainOut = pd.read_csv(csvAcc,index_col=0)
