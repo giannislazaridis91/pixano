@@ -37,7 +37,9 @@ pip install pixano
 
 ## Fixes required 
 
-- change the **ASSETS_PATH** AND **TEMPLATE_PATH** variables located within the *pixano/apps/annotator/serve.py* accordingly. 
+- change accordingly the **ASSETS_PATH** AND **TEMPLATE_PATH** variables located within the 
+    - *pixano/apps/annotator/serve.py* 
+    - *pixano/apps/explorer/serve.py* 
 
 ## Installing Active Learning
 

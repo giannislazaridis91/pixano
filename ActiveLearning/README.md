@@ -10,7 +10,7 @@ conda install -c conda-forge chardet
 
 ## instructions to install AL
 
-> in this directory (pixano/ActiveLearning/certh_integration/231031_mnist/) download clone the forked repository by using the following commands
+> in this directory (pixano/ActiveLearning/) download clone the forked repository by using the following commands
 ```customLearner
 $ git clone https://github.com/pasquale90/alpha_mix_active_learning
 $ cd alpha_mix_active_learning
@@ -18,7 +18,7 @@ $ git checkout integration-dev
 ```
 then install dependencies into a new conda environment as follows:
 ```
-conda ycreate --name customLearner python=3.10.10
+conda create --name customLearner python=3.10.10
 conda activate customLearner
 pip install -r requirements.txt
 ```
