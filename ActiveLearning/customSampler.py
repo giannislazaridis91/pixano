@@ -62,7 +62,16 @@ class customSampler():
         if self.alpha_opt and self.strategy_name=="AlphaMixSampling":
             arguments +=" --alpha_opt"
 
-        subprocess.run(f"""source ~/miniconda3/etc/profile.d/conda.sh
+    # FIX THIS IF CUSTOM INSTALLATION PATH IS USED
+        if ("anaconda3" in os.listdir( os.path.expanduser("~") )):
+            anaconda_dir = "anaconda3"
+        elif ("miniconda3" in os.listdir( os.path.expanduser("~") )):
+            anaconda_dir = "miniconda3"
+        else:
+            print("Anaconda installation dir not found. Currently, fix is not supported. Please provide the path directly in code.")
+            raise EnvironmentError
+
+        subprocess.run(f"""source ~/{anaconda_dir}/etc/profile.d/conda.sh
                     conda activate {self.customLearnerCondaEnv} 
                     python {relpath_ALmain} {arguments}""",
                     shell=True, executable='/bin/bash', check=True)
