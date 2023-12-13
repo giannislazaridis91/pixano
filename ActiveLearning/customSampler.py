@@ -22,6 +22,8 @@ class customSampler():
 
     _mode = "query"
 
+    device="CPU" #"GPU"
+
     def __init__(self, dataset, DATASET_NAME ,output_queDir, import_dir, **kwargs):
         self.db = dataset
         # super().__init__(dataset)
@@ -58,7 +60,9 @@ class customSampler():
                         --strategy {self.strategy_name}         \
                         --n_label {self.num_classes}            \
                         --n_init_lb {self.number_init_labels}   \
-                        --n_query {self.labels_per_round}"         
+                        --n_query {self.labels_per_round}       \
+                        --device {self.device}"
+                        
         if self.alpha_opt and self.strategy_name=="AlphaMixSampling":
             arguments +=" --alpha_opt"
 

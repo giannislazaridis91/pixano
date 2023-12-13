@@ -20,6 +20,8 @@ class customTrainer():
 
     _mode='train'
 
+    device='CPU' #'GPU'
+
     #in this trainer we train only on last round
     def __init__(self, db, DATASET_NAME, output_accDir, import_dir, **kwargs):
         self.db = db
@@ -59,7 +61,8 @@ class customTrainer():
                         --model {self.model_name}               \
                         --n_label {self.num_classes}            \
                         --learning_rate {self.learning_rate}    \
-                        --n_epoch {self.max_epochs_per_round}"
+                        --n_epoch {self.max_epochs_per_round}   \
+                        --device {self.device}"
 
     # FIX THIS IF CUSTOM INSTALLATION PATH IS USED
         if ("anaconda3" in os.listdir( os.path.expanduser("~") )):
