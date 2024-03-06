@@ -77,3 +77,5 @@ For supporting a new dataset, the following actions ought to take place:
     - handler = get_handler("dataset_name")
 
      --> *  HINT: the parsing of the dataset in _main.py should be aligned with the current dataset (i.e. if dataset consist of RGB of Grayscale images)
+
+![Pixano and Active Learning integration process](https://github.com/giannislazaridis91/pixano/blob/main/ActiveLearning/ActiveLearning.png)
